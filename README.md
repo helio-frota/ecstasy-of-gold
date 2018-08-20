@@ -1,5 +1,5 @@
 # ecstasy-of-gold
-A C version of a game I made years ago.
+A C version of [a game I made years ago](https://github.com/helio-frota/g-o-l-d).
 
 
 ## Development
