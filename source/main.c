@@ -56,6 +56,13 @@ int main()
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
     int move_speed = 40;
+    int steps = 0;
+    char steps_text[11] = {"STEPS: "};
+
+    al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
+    al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
+    al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
+    al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
 
     while (!done)
     {
@@ -67,15 +74,19 @@ int main()
             switch (events.keyboard.keycode)
             {
             case ALLEGRO_KEY_J:
+                steps += 1;
                 y += move_speed;
                 break;
             case ALLEGRO_KEY_K:
+                steps += 1;
                 y -= move_speed;
                 break;
             case ALLEGRO_KEY_L:
+                steps += 1;
                 x += move_speed;
                 break;
             case ALLEGRO_KEY_H:
+                steps += 1;
                 x -= move_speed;
                 break;
             case ALLEGRO_KEY_ESCAPE:
@@ -86,16 +97,20 @@ int main()
         al_draw_text(font, blue, x, y, ALLEGRO_ALIGN_CENTER, "X");
         al_flip_display();
         al_clear_to_color(darkgreen);
-        al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE:");
-        al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 99");
+
+        al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
+
+        sprintf(steps_text, "%d", steps);
+        al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, steps_text);
+        al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
         al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
+
         al_draw_rectangle(40, 80, 240, 280, blue, RECT_THICKNESS);
         al_draw_rectangle(40, 480, 240, 680, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 40, 80, DISPLAY_WIDTH - 240, 280, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 40, 480, DISPLAY_WIDTH - 240, 680, blue, RECT_THICKNESS);
     }
 
-    // al_rest(15.0);
     al_destroy_font(font);
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
