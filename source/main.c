@@ -100,7 +100,7 @@ int main()
 
         al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
 
-        sprintf(steps_text, "%d", steps);
+        sprintf(steps_text, "STEPS: %d", steps);
         al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, steps_text);
         al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
         al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
