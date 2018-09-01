@@ -45,12 +45,15 @@ int main()
     al_init_primitives_addon();
     al_install_keyboard();
 
+    ALLEGRO_KEYBOARD_STATE keyboard_state;
+
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
+    
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-    ALLEGRO_EVENT_QUEUE *timer_queue = al_create_event_queue();
     ALLEGRO_TIMER *timer = al_create_timer(1.0);
     al_register_event_source(event_queue, al_get_keyboard_event_source());
-    al_register_event_source(timer_queue, al_get_timer_event_source(timer));
+    al_register_event_source(event_queue, al_get_timer_event_source(timer));
+
     al_start_timer(timer);
 
     al_set_window_title(display, "Ecstasy of gold");
@@ -71,45 +74,46 @@ int main()
     {
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
-
-        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
+        
+        if (events.type == ALLEGRO_EVENT_KEY_UP)
         {
-            switch (events.keyboard.keycode)
+            if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
             {
-            case ALLEGRO_KEY_J:
-                steps += 1;
-                y += move_speed;
-                break;
-            case ALLEGRO_KEY_K:
-                steps += 1;
-                y -= move_speed;
-                break;
-            case ALLEGRO_KEY_L:
-                steps += 1;
-                x += move_speed;
-                break;
-            case ALLEGRO_KEY_H:
-                steps += 1;
-                x -= move_speed;
-                break;
-            case ALLEGRO_KEY_ESCAPE:
                 done = 1;
-                break;
             }
         }
 
-        if (!al_is_event_queue_empty(timer_queue))
+        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
-            ALLEGRO_EVENT evento;
-            al_wait_for_event(timer_queue, &evento);
-
-            if (evento.type == ALLEGRO_EVENT_TIMER)
+            al_get_keyboard_state(&keyboard_state);
+            if (al_key_down(&keyboard_state, ALLEGRO_KEY_J))
             {
-                seconds--;
-                if (seconds == 0)
-                {
-                    return EXIT_SUCCESS;
-                }
+                steps += 1;
+                y += move_speed;
+            }
+            else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
+            {
+                steps += 1;
+                y -= move_speed;
+            }
+            else if (al_key_down(&keyboard_state, ALLEGRO_KEY_L))
+            {
+                steps += 1;
+                x += move_speed;
+            }
+            else if (al_key_down(&keyboard_state, ALLEGRO_KEY_H))
+            {
+                steps += 1;
+                x -= move_speed;
+            }
+        }
+
+        if (events.type == ALLEGRO_EVENT_TIMER)
+        {
+            seconds--;
+            if (seconds == 0)
+            {
+                return EXIT_SUCCESS;
             }
         }
 
@@ -133,7 +137,6 @@ int main()
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(event_queue);
-    al_destroy_event_queue(timer_queue);
 
     return EXIT_SUCCESS;
 }
