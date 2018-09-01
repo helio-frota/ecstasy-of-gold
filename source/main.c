@@ -47,8 +47,11 @@ int main()
 
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-
+    ALLEGRO_EVENT_QUEUE *timer_queue = al_create_event_queue();
+    ALLEGRO_TIMER *timer = al_create_timer(1.0);
     al_register_event_source(event_queue, al_get_keyboard_event_source());
+    al_register_event_source(timer_queue, al_get_timer_event_source(timer));
+    al_start_timer(timer);
 
     al_set_window_title(display, "Ecstasy of gold");
 
@@ -57,7 +60,7 @@ int main()
     int y = DISPLAY_HEIGHT / 2;
     int move_speed = 40;
     int steps = 0;
-    char steps_text[11] = {"STEPS: "};
+    int seconds = 60;
 
     al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
     al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
@@ -94,15 +97,30 @@ int main()
                 break;
             }
         }
+
+        if (!al_is_event_queue_empty(timer_queue))
+        {
+            ALLEGRO_EVENT evento;
+            al_wait_for_event(timer_queue, &evento);
+
+            if (evento.type == ALLEGRO_EVENT_TIMER)
+            {
+                seconds--;
+                if (seconds == 0)
+                {
+                    return EXIT_SUCCESS;
+                }
+            }
+        }
+
         al_draw_text(font, blue, x, y, ALLEGRO_ALIGN_CENTER, "X");
         al_flip_display();
         al_clear_to_color(darkgreen);
 
         al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
 
-        sprintf(steps_text, "STEPS: %d", steps);
-        al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, steps_text);
-        al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
+        al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", steps);
+        al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
         al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
 
         al_draw_rectangle(40, 80, 240, 280, blue, RECT_THICKNESS);
@@ -113,7 +131,9 @@ int main()
 
     al_destroy_font(font);
     al_destroy_display(display);
+    al_destroy_timer(timer);
     al_destroy_event_queue(event_queue);
+    al_destroy_event_queue(timer_queue);
 
     return EXIT_SUCCESS;
 }
