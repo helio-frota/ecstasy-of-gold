@@ -55,7 +55,7 @@ int main()
     int done = 0;
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
-    int move_speed = 5;
+    int move_speed = 40;
 
     while (!done)
     {
