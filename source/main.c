@@ -58,7 +58,7 @@ int main()
     al_draw_rectangle(DISPLAY_WIDTH - 40, 480, DISPLAY_WIDTH - 240, 680, blue, RECT_THICKNESS);
 
     al_flip_display();
-    al_rest(5.0);
+    al_rest(15.0);
     al_destroy_font(font);
     al_destroy_display(display);
 

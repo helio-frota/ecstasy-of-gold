@@ -12,3 +12,8 @@ Please install the required dependencies:
 sudo dnf install allegro5
 sudo dnf install allegro5-devel
 ```
+
+
+#### Current status:
+
+![Alt status](https://raw.githubusercontent.com/helio-frota/ecstasy-of-gold/master/currentstatus.png)
