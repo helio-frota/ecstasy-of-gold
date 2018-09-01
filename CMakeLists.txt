@@ -9,6 +9,7 @@ add_executable(eog ${PROJECT_SOURCE_DIR}/source/main.c)
 target_link_libraries(eog allegro_dialog
                           allegro_image
                           allegro_font
+                          allegro_primitives
                           allegro_ttf
                           allegro
 )
