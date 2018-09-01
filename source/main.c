@@ -7,7 +7,7 @@
 
 #define DISPLAY_WIDTH 1024
 #define DISPLAY_HEIGHT 768
-#define RECT_THICKNESS 4.5
+#define RECT_THICKNESS 4.0
 
 int main()
 {
@@ -46,10 +46,12 @@ int main()
     ALLEGRO_COLOR yellow = al_map_rgb(181, 137, 0);
 
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
-    al_draw_text(font, yellow, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2,
+    al_draw_text(font, blue, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2,
                  ALLEGRO_ALIGN_CENTER, "X");
 
-    // x1, y1, x2, y2
+    al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE:");
+    al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 99");
+    al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
     al_draw_rectangle(40, 80, 240, 280, blue, RECT_THICKNESS);
     al_draw_rectangle(40, 480, 240, 680, blue, RECT_THICKNESS);
     al_draw_rectangle(DISPLAY_WIDTH - 40, 80, DISPLAY_WIDTH - 240, 280, blue, RECT_THICKNESS);
