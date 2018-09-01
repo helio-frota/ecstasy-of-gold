@@ -7,7 +7,7 @@
 
 #define DISPLAY_WIDTH 1024
 #define DISPLAY_HEIGHT 768
-#define RECT_THICKNESS 4.0
+#define RECT_THICKNESS 4.5
 
 int main()
 {
@@ -22,8 +22,9 @@ int main()
         return EXIT_FAILURE;
     }
 
-    al_set_new_display_flags(ALLEGRO_FULLSCREEN);
     ALLEGRO_DISPLAY *display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+    al_clear_to_color(al_map_rgb(0, 43, 54));
 
     if (!display)
     {
@@ -41,16 +42,18 @@ int main()
 
     al_set_window_title(display, "Ecstasy of gold");
 
-    ALLEGRO_COLOR blue = al_map_rgb(44, 117, 255);
+    ALLEGRO_COLOR blue = al_map_rgb(38, 139, 210);
+    ALLEGRO_COLOR yellow = al_map_rgb(181, 137, 0);
 
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
-    al_draw_text(font, blue, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2,
-                 ALLEGRO_ALIGN_CENTER, "Ecstasy of gold");
+    al_draw_text(font, yellow, DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2,
+                 ALLEGRO_ALIGN_CENTER, "X");
 
-    al_draw_rectangle(20, 20, 200, 200, blue, RECT_THICKNESS);
-    al_draw_rectangle(20, 460, 200, 260, blue, RECT_THICKNESS);
-    al_draw_rectangle(DISPLAY_WIDTH - 20, 20, DISPLAY_WIDTH - 200, 200, blue, RECT_THICKNESS);
-    al_draw_rectangle(DISPLAY_WIDTH - 20, 460, DISPLAY_WIDTH - 200, 260, blue, RECT_THICKNESS);
+    // x1, y1, x2, y2
+    al_draw_rectangle(40, 80, 240, 280, blue, RECT_THICKNESS);
+    al_draw_rectangle(40, 480, 240, 680, blue, RECT_THICKNESS);
+    al_draw_rectangle(DISPLAY_WIDTH - 40, 80, DISPLAY_WIDTH - 240, 280, blue, RECT_THICKNESS);
+    al_draw_rectangle(DISPLAY_WIDTH - 40, 480, DISPLAY_WIDTH - 240, 680, blue, RECT_THICKNESS);
 
     al_flip_display();
     al_rest(5.0);
