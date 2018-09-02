@@ -125,6 +125,7 @@ int main()
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                         al_draw_filled_rectangle(160, 220, 200, 260, darkgreen);
+                        gold_position = rand_gold_position();
                         score++;
                     }
                 }
