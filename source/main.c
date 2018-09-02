@@ -11,6 +11,14 @@
 #define DISPLAY_HEIGHT 768
 #define RECT_THICKNESS 5
 
+int basic_collision(float x, float y, float gold_x, float gold_y, int width, int height)
+{
+    if (x + width < gold_x || x > gold_x + width || y + height < gold_y || y > gold_y + height) {
+        return 0;
+    }
+    return 1;
+}
+
 int main()
 {
 
@@ -73,11 +81,12 @@ int main()
     int done = 0;
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
+    int score = 0;
     int move_speed = 40;
     int steps = 0;
     int seconds = 60;
 
-    al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
+    al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
     al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
     al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
     al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
@@ -104,7 +113,6 @@ int main()
                 {
                     steps += 1;
                     y += move_speed;
-                    al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
@@ -146,7 +154,10 @@ int main()
         al_flip_display();
         al_clear_to_color(darkgreen);
 
-        al_draw_text(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: 0");
+        if (basic_collision(x, y, 160, 200, 40, 40)) {
+            al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", ++score);
+            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+        }
 
         al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", steps);
         al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
