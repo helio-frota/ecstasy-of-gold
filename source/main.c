@@ -93,6 +93,7 @@ int main()
     int steps = 0;
     int seconds = 60;
     int gold_position = rand_gold_position();
+    int current_gold_position = gold_position;
 
     al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
     al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
@@ -126,12 +127,10 @@ int main()
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if (gold_position == 0)
-                        {
-                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                            score++;
-                            gold_position = rand_gold_position();
-                        }
+
+                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        score++;
+                        gold_position = rand_gold_position();
                     }
                 }
             }
@@ -212,7 +211,6 @@ int main()
         al_draw_rectangle(DISPLAY_WIDTH - 80, 140, DISPLAY_WIDTH - 280, 340, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 680, blue, RECT_THICKNESS);
 
-        // the gold.
         if (gold_position == 0)
         {
             al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 504, DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 544, yellow);
