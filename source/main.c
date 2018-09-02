@@ -121,14 +121,17 @@ int main()
                 {
                     steps += 1;
                     y += move_speed;
-                    if (basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45))
+                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        gold_position = rand_gold_position();
-                        score++;
+                        if (gold_position == 0)
+                        {
+                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                            score++;
+                            gold_position = rand_gold_position();
+                        }
                     }
                 }
             }
@@ -138,10 +141,10 @@ int main()
                 {
                     steps += 1;
                     y -= move_speed;
-                    if (basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45))
+                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                         gold_position = rand_gold_position();
@@ -155,10 +158,10 @@ int main()
                 {
                     steps += 1;
                     x += move_speed;
-                    if (basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45))
+                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                         gold_position = rand_gold_position();
@@ -172,10 +175,10 @@ int main()
                 {
                     steps += 1;
                     x -= move_speed;
-                    if (basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45) ||
-                        basic_collision(x, y, 155, 195, 45, 45))
+                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                         gold_position = rand_gold_position();
