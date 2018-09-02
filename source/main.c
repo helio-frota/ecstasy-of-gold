@@ -89,7 +89,7 @@ int main()
     int x = DISPLAY_WIDTH / 2;
     int y = DISPLAY_HEIGHT / 2;
     int score = 0;
-    int move_speed = 40;
+    int move_speed = 45;
     int steps = 0;
     int seconds = 60;
     int gold_position = rand_gold_position();
@@ -121,10 +121,12 @@ int main()
                 {
                     steps += 1;
                     y += move_speed;
-                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    if (basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        al_draw_filled_rectangle(160, 220, 200, 260, darkgreen);
                         gold_position = rand_gold_position();
                         score++;
                     }
@@ -136,9 +138,13 @@ int main()
                 {
                     steps += 1;
                     y -= move_speed;
-                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    if (basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        gold_position = rand_gold_position();
                         score++;
                     }
                 }
@@ -149,9 +155,13 @@ int main()
                 {
                     steps += 1;
                     x += move_speed;
-                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    if (basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        gold_position = rand_gold_position();
                         score++;
                     }
                 }
@@ -162,9 +172,13 @@ int main()
                 {
                     steps += 1;
                     x -= move_speed;
-                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    if (basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45) ||
+                        basic_collision(x, y, 155, 195, 45, 45))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        gold_position = rand_gold_position();
                         score++;
                     }
                 }
@@ -198,21 +212,20 @@ int main()
         // the gold.
         if (gold_position == 0)
         {
-            al_draw_filled_rectangle(160, 220, 200, 260, yellow);
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 504, DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 544, yellow);
         }
         else if (gold_position == 1)
         {
-            al_draw_filled_rectangle(160, 560, 200, 600, yellow);
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 208, DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 164, yellow);
         }
         else if (gold_position == 2)
         {
-            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 220, DISPLAY_WIDTH - 200, 260, yellow);
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 508, DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 548, yellow);
         }
         else if (gold_position == 3)
         {
-            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 560, DISPLAY_WIDTH - 200, 600, yellow);
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 208, DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 168, yellow);
         }
-        
     }
 
     al_destroy_font(font);
