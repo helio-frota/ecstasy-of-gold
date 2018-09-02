@@ -7,7 +7,7 @@
 
 #define DISPLAY_WIDTH 1024
 #define DISPLAY_HEIGHT 768
-#define RECT_THICKNESS 4.0
+#define RECT_THICKNESS 5
 
 int main()
 {
@@ -48,7 +48,7 @@ int main()
     ALLEGRO_KEYBOARD_STATE keyboard_state;
 
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
-    
+
     ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
     ALLEGRO_TIMER *timer = al_create_timer(1.0);
     al_register_event_source(event_queue, al_get_keyboard_event_source());
@@ -74,7 +74,7 @@ int main()
     {
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
-        
+
         if (events.type == ALLEGRO_EVENT_KEY_UP)
         {
             if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
@@ -88,23 +88,35 @@ int main()
             al_get_keyboard_state(&keyboard_state);
             if (al_key_down(&keyboard_state, ALLEGRO_KEY_J))
             {
-                steps += 1;
-                y += move_speed;
+                if (y < DISPLAY_HEIGHT - 100)
+                {
+                    steps += 1;
+                    y += move_speed;
+                }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
             {
-                steps += 1;
-                y -= move_speed;
+                if (y > 100)
+                {
+                    steps += 1;
+                    y -= move_speed;
+                }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_L))
             {
-                steps += 1;
-                x += move_speed;
+                if (x < DISPLAY_WIDTH - 40)
+                {
+                    steps += 1;
+                    x += move_speed;
+                }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_H))
             {
-                steps += 1;
-                x -= move_speed;
+                if (x > 40)
+                {
+                    steps += 1;
+                    x -= move_speed;
+                }
             }
         }
 
@@ -127,10 +139,10 @@ int main()
         al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
         al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
 
-        al_draw_rectangle(40, 80, 240, 280, blue, RECT_THICKNESS);
-        al_draw_rectangle(40, 480, 240, 680, blue, RECT_THICKNESS);
-        al_draw_rectangle(DISPLAY_WIDTH - 40, 80, DISPLAY_WIDTH - 240, 280, blue, RECT_THICKNESS);
-        al_draw_rectangle(DISPLAY_WIDTH - 40, 480, DISPLAY_WIDTH - 240, 680, blue, RECT_THICKNESS);
+        al_draw_rectangle(80, 140, 280, 340, blue, RECT_THICKNESS);
+        al_draw_rectangle(80, 480, 280, 680, blue, RECT_THICKNESS);
+        al_draw_rectangle(DISPLAY_WIDTH - 80, 140, DISPLAY_WIDTH - 280, 340, blue, RECT_THICKNESS);
+        al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 681, blue, RECT_THICKNESS);
     }
 
     al_destroy_font(font);
