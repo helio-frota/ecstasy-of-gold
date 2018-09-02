@@ -13,7 +13,8 @@
 
 int basic_collision(float x, float y, float gold_x, float gold_y, int width, int height)
 {
-    if (x + width < gold_x || x > gold_x + width || y + height < gold_y || y > gold_y + height) {
+    if (x + width < gold_x || x > gold_x + width || y + height < gold_y || y > gold_y + height)
+    {
         return 0;
     }
     return 1;
@@ -113,6 +114,11 @@ int main()
                 {
                     steps += 1;
                     y += move_speed;
+                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    {
+                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        score++;
+                    }
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
@@ -121,6 +127,11 @@ int main()
                 {
                     steps += 1;
                     y -= move_speed;
+                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    {
+                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        score++;
+                    }
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_L))
@@ -129,6 +140,11 @@ int main()
                 {
                     steps += 1;
                     x += move_speed;
+                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    {
+                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        score++;
+                    }
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_H))
@@ -137,6 +153,11 @@ int main()
                 {
                     steps += 1;
                     x -= move_speed;
+                    if (basic_collision(x, y, 165, 205, 45, 45))
+                    {
+                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        score++;
+                    }
                 }
             }
         }
@@ -154,10 +175,7 @@ int main()
         al_flip_display();
         al_clear_to_color(darkgreen);
 
-        if (basic_collision(x, y, 160, 200, 40, 40)) {
-            al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", ++score);
-            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-        }
+        al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
 
         al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", steps);
         al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
