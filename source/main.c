@@ -128,9 +128,15 @@ int main()
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
 
-                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        score++;
-                        gold_position = rand_gold_position();
+                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
+                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
+                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
+                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        {
+                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                            score++;
+                            gold_position = rand_gold_position();
+                        }
                     }
                 }
             }
@@ -145,9 +151,15 @@ int main()
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        gold_position = rand_gold_position();
-                        score++;
+                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
+                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
+                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
+                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        {
+                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                            gold_position = rand_gold_position();
+                            score++;
+                        }
                     }
                 }
             }
@@ -162,9 +174,15 @@ int main()
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        gold_position = rand_gold_position();
-                        score++;
+                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
+                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
+                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
+                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        {
+                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                            gold_position = rand_gold_position();
+                            score++;
+                        }
                     }
                 }
             }
@@ -179,9 +197,15 @@ int main()
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                        gold_position = rand_gold_position();
-                        score++;
+                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
+                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
+                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
+                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        {
+                            al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                            gold_position = rand_gold_position();
+                            score++;
+                        }
                     }
                 }
             }
