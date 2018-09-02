@@ -7,6 +7,8 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 add_executable(eog ${PROJECT_SOURCE_DIR}/source/main.c)
 
 target_link_libraries(eog allegro_dialog
+                          allegro_acodec
+                          allegro_audio
                           allegro_image
                           allegro_font
                           allegro_primitives

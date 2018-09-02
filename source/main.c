@@ -4,6 +4,8 @@
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 
 #define DISPLAY_WIDTH 1024
 #define DISPLAY_HEIGHT 768
@@ -40,12 +42,21 @@ int main()
         return EXIT_FAILURE;
     }
 
+    al_install_audio();
+    al_install_keyboard();
     al_init_font_addon();
     al_init_ttf_addon();
     al_init_primitives_addon();
-    al_install_keyboard();
+    al_init_acodec_addon();
 
     ALLEGRO_KEYBOARD_STATE keyboard_state;
+
+    al_reserve_samples(2);
+    ALLEGRO_SAMPLE *sound_gold = al_load_sample("sounds/sound_gold.wav");
+    ALLEGRO_SAMPLE *song_gold = al_load_sample("sounds/song_gold.wav");
+    ALLEGRO_SAMPLE_INSTANCE *song_instance = al_create_sample_instance(song_gold);
+    al_set_sample_instance_playmode(song_instance, ALLEGRO_PLAYMODE_LOOP);
+    al_attach_sample_instance_to_mixer(song_instance, al_get_default_mixer());
 
     ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
 
@@ -54,6 +65,7 @@ int main()
     al_register_event_source(event_queue, al_get_keyboard_event_source());
     al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
+    al_play_sample_instance(song_instance);
     al_start_timer(timer);
 
     al_set_window_title(display, "Ecstasy of gold");
@@ -92,6 +104,7 @@ int main()
                 {
                     steps += 1;
                     y += move_speed;
+                    al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
@@ -154,6 +167,9 @@ int main()
     al_destroy_font(font);
     al_destroy_display(display);
     al_destroy_timer(timer);
+    al_destroy_sample(sound_gold);
+    al_destroy_sample(song_gold);
+    al_destroy_sample_instance(song_instance);
     al_destroy_event_queue(event_queue);
 
     return EXIT_SUCCESS;
