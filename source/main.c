@@ -142,7 +142,13 @@ int main()
         al_draw_rectangle(80, 140, 280, 340, blue, RECT_THICKNESS);
         al_draw_rectangle(80, 480, 280, 680, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 80, 140, DISPLAY_WIDTH - 280, 340, blue, RECT_THICKNESS);
-        al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 681, blue, RECT_THICKNESS);
+        al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 680, blue, RECT_THICKNESS);
+
+        // the gold.
+        al_draw_filled_rectangle(160, 220, 200, 260, yellow);
+        al_draw_filled_rectangle(160, 560, 200, 600, yellow);
+        al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 220, DISPLAY_WIDTH - 200, 260, yellow);
+        al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 560, DISPLAY_WIDTH - 200, 600, yellow);
     }
 
     al_destroy_font(font);
