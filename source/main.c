@@ -11,6 +11,12 @@
 #define DISPLAY_HEIGHT 768
 #define RECT_THICKNESS 5
 
+int rand_gold_position()
+{
+    srand(time(NULL));
+    return (rand() % 4);
+}
+
 int basic_collision(float x, float y, float gold_x, float gold_y, int width, int height)
 {
     if (x + width < gold_x || x > gold_x + width || y + height < gold_y || y > gold_y + height)
@@ -86,6 +92,7 @@ int main()
     int move_speed = 40;
     int steps = 0;
     int seconds = 60;
+    int gold_position = rand_gold_position();
 
     al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
     al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
@@ -117,6 +124,7 @@ int main()
                     if (basic_collision(x, y, 165, 205, 45, 45))
                     {
                         al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                        al_draw_filled_rectangle(160, 220, 200, 260, darkgreen);
                         score++;
                     }
                 }
@@ -187,10 +195,23 @@ int main()
         al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 680, blue, RECT_THICKNESS);
 
         // the gold.
-        al_draw_filled_rectangle(160, 220, 200, 260, yellow);
-        al_draw_filled_rectangle(160, 560, 200, 600, yellow);
-        al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 220, DISPLAY_WIDTH - 200, 260, yellow);
-        al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 560, DISPLAY_WIDTH - 200, 600, yellow);
+        if (gold_position == 0)
+        {
+            al_draw_filled_rectangle(160, 220, 200, 260, yellow);
+        }
+        else if (gold_position == 1)
+        {
+            al_draw_filled_rectangle(160, 560, 200, 600, yellow);
+        }
+        else if (gold_position == 2)
+        {
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 220, DISPLAY_WIDTH - 200, 260, yellow);
+        }
+        else if (gold_position == 3)
+        {
+            al_draw_filled_rectangle(DISPLAY_WIDTH - 160, 560, DISPLAY_WIDTH - 200, 600, yellow);
+        }
+        
     }
 
     al_destroy_font(font);
