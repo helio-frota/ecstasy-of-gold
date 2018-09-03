@@ -11,6 +11,11 @@
 #define DISPLAY_HEIGHT 768
 #define RECT_THICKNESS 5
 
+enum position_of_gold
+{
+  LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+};
+
 typedef struct player
 {
     int x;
@@ -138,10 +143,10 @@ int main()
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
 
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             player.score++;
@@ -161,10 +166,10 @@ int main()
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
@@ -184,10 +189,10 @@ int main()
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
@@ -207,10 +212,10 @@ int main()
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
                         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
