@@ -11,6 +11,15 @@
 #define DISPLAY_HEIGHT 768
 #define RECT_THICKNESS 5
 
+typedef struct player
+{
+    int x;
+    int y;
+    int score;
+    int move_speed;
+    int steps;
+} PLAYER;
+
 int rand_gold_position()
 {
     srand(time(NULL));
@@ -85,17 +94,18 @@ int main()
 
     al_set_window_title(display, "Ecstasy of gold");
 
+    PLAYER player;
+    player.x = DISPLAY_WIDTH / 2;
+    player.y = DISPLAY_HEIGHT / 2;
+    player.score = 0;
+    player.move_speed = 45;
+    player.steps = 0;
+
     int done = 0;
-    int x = DISPLAY_WIDTH / 2;
-    int y = DISPLAY_HEIGHT / 2;
-    int score = 0;
-    int move_speed = 45;
-    int steps = 0;
     int seconds = 60;
     int gold_position = rand_gold_position();
-    int current_gold_position = gold_position;
 
-    al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
+    al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
     al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
     al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
     al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
@@ -118,23 +128,23 @@ int main()
             al_get_keyboard_state(&keyboard_state);
             if (al_key_down(&keyboard_state, ALLEGRO_KEY_J))
             {
-                if (y < DISPLAY_HEIGHT - 100)
+                if (player.y < DISPLAY_HEIGHT - 100)
                 {
-                    steps += 1;
-                    y += move_speed;
-                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    player.steps += 1;
+                    player.y += player.move_speed;
+                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
 
-                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
-                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
-                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
-                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                            score++;
+                            player.score++;
                             gold_position = rand_gold_position();
                         }
                     }
@@ -142,69 +152,69 @@ int main()
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_K))
             {
-                if (y > 100)
+                if (player.y > 100)
                 {
-                    steps += 1;
-                    y -= move_speed;
-                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    player.steps += 1;
+                    player.y -= player.move_speed;
+                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
-                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
-                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
-                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
-                            score++;
+                            player.score++;
                         }
                     }
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_L))
             {
-                if (x < DISPLAY_WIDTH - 40)
+                if (player.x < DISPLAY_WIDTH - 40)
                 {
-                    steps += 1;
-                    x += move_speed;
-                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    player.steps += 1;
+                    player.x += player.move_speed;
+                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
-                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
-                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
-                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
-                            score++;
+                            player.score++;
                         }
                     }
                 }
             }
             else if (al_key_down(&keyboard_state, ALLEGRO_KEY_H))
             {
-                if (x > 40)
+                if (player.x > 40)
                 {
-                    steps += 1;
-                    x -= move_speed;
-                    if (basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(x, y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    player.steps += 1;
+                    player.x -= player.move_speed;
+                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
                     {
-                        if ((((x > 150 && x < 200) && (y > 200 && y < 250)) && gold_position == 0) ||
-                            (((x > 150 && x < 200) && (y > 560 && y < 570)) && gold_position == 1) ||
-                            (((x > 870 && x < 880) && (y > 200 && y < 250)) && gold_position == 2) ||
-                            (((x > 870 && x < 880) && (y > 560 && y < 570)) && gold_position == 3))
+                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == 0) ||
+                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == 1) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == 2) ||
+                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == 3))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
-                            score++;
+                            player.score++;
                         }
                     }
                 }
@@ -220,13 +230,13 @@ int main()
             }
         }
 
-        al_draw_text(font, blue, x, y, ALLEGRO_ALIGN_CENTER, "X");
+        al_draw_text(font, blue, player.x, player.y, ALLEGRO_ALIGN_CENTER, "X");
         al_flip_display();
         al_clear_to_color(darkgreen);
 
-        al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", score);
+        al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
 
-        al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", steps);
+        al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", player.steps);
         al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
         al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
 
