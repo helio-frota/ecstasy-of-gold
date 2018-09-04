@@ -13,7 +13,10 @@
 
 enum position_of_gold
 {
-  LEFT_TOP, LEFT_BOTTOM, RIGHT_TOP, RIGHT_BOTTOM
+    LEFT_TOP,
+    LEFT_BOTTOM,
+    RIGHT_TOP,
+    RIGHT_BOTTOM
 };
 
 typedef struct player
@@ -38,6 +41,15 @@ int basic_collision(float x, float y, float gold_x, float gold_y, int width, int
         return 0;
     }
     return 1;
+}
+
+int collided(PLAYER player)
+{
+    int collided = basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40);
+    return collided;
 }
 
 int main()
@@ -137,10 +149,7 @@ int main()
                 {
                     player.steps += 1;
                     player.y += player.move_speed;
-                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    if (collided(player))
                     {
 
                         if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
@@ -161,10 +170,7 @@ int main()
                 {
                     player.steps += 1;
                     player.y -= player.move_speed;
-                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    if (collided(player))
                     {
                         if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
                             (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
@@ -184,10 +190,7 @@ int main()
                 {
                     player.steps += 1;
                     player.x += player.move_speed;
-                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    if (collided(player))
                     {
                         if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
                             (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
@@ -207,10 +210,7 @@ int main()
                 {
                     player.steps += 1;
                     player.x -= player.move_speed;
-                    if (basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                        basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40))
+                    if (collided(player))
                     {
                         if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
                             (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
