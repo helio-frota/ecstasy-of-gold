@@ -45,11 +45,18 @@ int basic_collision(float x, float y, float gold_x, float gold_y, int width, int
 
 int collided(PLAYER player)
 {
-    int collided = basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
-                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
-                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
-                   basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40);
-    return collided;
+    return basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 550, 40, 40) ||
+           basic_collision(player.x, player.y, DISPLAY_WIDTH - 850, DISPLAY_HEIGHT - 200, 40, 40) ||
+           basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 550, 40, 40) ||
+           basic_collision(player.x, player.y, DISPLAY_WIDTH - 150, DISPLAY_HEIGHT - 200, 40, 40);
+}
+
+int gold_found(PLAYER player, int gold_position)
+{
+    return (((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
+           (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
+           (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
+           (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM);
 }
 
 int main()
@@ -151,11 +158,7 @@ int main()
                     player.y += player.move_speed;
                     if (collided(player))
                     {
-
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
+                        if (gold_found(player, gold_position))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             player.score++;
@@ -172,10 +175,7 @@ int main()
                     player.y -= player.move_speed;
                     if (collided(player))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
+                        if (gold_found(player, gold_position))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
@@ -192,10 +192,7 @@ int main()
                     player.x += player.move_speed;
                     if (collided(player))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
+                        if (gold_found(player, gold_position))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
@@ -212,10 +209,7 @@ int main()
                     player.x -= player.move_speed;
                     if (collided(player))
                     {
-                        if ((((player.x > 150 && player.x < 200) && (player.y > 200 && player.y < 250)) && gold_position == LEFT_TOP) ||
-                            (((player.x > 150 && player.x < 200) && (player.y > 560 && player.y < 570)) && gold_position == LEFT_BOTTOM) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 200 && player.y < 250)) && gold_position == RIGHT_TOP) ||
-                            (((player.x > 870 && player.x < 880) && (player.y > 560 && player.y < 570)) && gold_position == RIGHT_BOTTOM))
+                        if (gold_found(player, gold_position))
                         {
                             al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                             gold_position = rand_gold_position();
