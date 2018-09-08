@@ -139,16 +139,14 @@ int main()
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
 
-        if (events.type == ALLEGRO_EVENT_KEY_UP)
+        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
         {
             if (events.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
             {
                 done = 1;
+                continue;
             }
-        }
 
-        if (events.type == ALLEGRO_EVENT_KEY_DOWN)
-        {
             al_get_keyboard_state(&keyboard_state);
             if (al_key_down(&keyboard_state, ALLEGRO_KEY_J))
             {
