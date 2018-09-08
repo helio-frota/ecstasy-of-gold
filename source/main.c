@@ -129,13 +129,13 @@ int main()
     int seconds = 60;
     int gold_position = rand_gold_position();
 
-    al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
-    al_draw_text(font, blue, (DISPLAY_WIDTH / 2) - 200, 1, ALLEGRO_ALIGN_LEFT, "STEPS: 0");
-    al_draw_text(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: 60");
-    al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
-
-    while (!done)
+    do
     {
+        al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
+        al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", player.steps);
+        al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
+        al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
+
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue, &events);
 
@@ -218,7 +218,7 @@ int main()
                     }
                 }
             }
-        }
+        } 
 
         if (events.type == ALLEGRO_EVENT_TIMER)
         {
@@ -233,34 +233,28 @@ int main()
         al_flip_display();
         al_clear_to_color(darkgreen);
 
-        al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
-
-        al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT, "STEPS: %d", player.steps);
-        al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT, "TIME REMAINING: %d", seconds);
-        al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
-
         al_draw_rectangle(80, 140, 280, 340, blue, RECT_THICKNESS);
         al_draw_rectangle(80, 480, 280, 680, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 80, 140, DISPLAY_WIDTH - 280, 340, blue, RECT_THICKNESS);
         al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 680, blue, RECT_THICKNESS);
 
-        if (gold_position == 0)
+        if (gold_position == LEFT_TOP)
         {
             al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 504, DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 544, yellow);
         }
-        else if (gold_position == 1)
+        else if (gold_position == LEFT_BOTTOM)
         {
             al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 208, DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 164, yellow);
         }
-        else if (gold_position == 2)
+        else if (gold_position == RIGHT_TOP)
         {
             al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 508, DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 548, yellow);
         }
-        else if (gold_position == 3)
+        else if (gold_position == RIGHT_BOTTOM)
         {
             al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 208, DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 168, yellow);
         }
-    }
+    } while (!done);
 
     al_destroy_font(font);
     al_destroy_display(display);
