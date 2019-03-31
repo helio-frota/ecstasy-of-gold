@@ -7,8 +7,8 @@
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
 
-#define DISPLAY_WIDTH 1024
-#define DISPLAY_HEIGHT 768
+#define DISPLAY_WIDTH 800
+#define DISPLAY_HEIGHT 600
 #define RECT_THICKNESS 5
 
 enum position_of_gold

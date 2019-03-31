@@ -1,10 +1,15 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 project(eog VERSION 0.0.1 LANGUAGES C)
 
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+set(CMAKE_C_COMPILER gcc)
+string(APPEND CMAKE_C_FLAGS "-Wall -Wextra -Wno-unused-parameter -Wendif-labels")
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-add_executable(eog ${PROJECT_SOURCE_DIR}/source/main.c)
+add_executable(eog ${PROJECT_SOURCE_DIR}/src/main.c)
 
 target_link_libraries(eog allegro_dialog
                           allegro_acodec
@@ -15,3 +20,6 @@ target_link_libraries(eog allegro_dialog
                           allegro_ttf
                           allegro
 )
+
+set(CPACK_GENERATOR "TGZ")
+include(CPack)
