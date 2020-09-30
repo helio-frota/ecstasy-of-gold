@@ -5,5 +5,5 @@ if [ ! -d "build" ]; then
 fi
 
 cd build
-cmake ../
-cmake --build .
+cmake -GNinja ..
+ninja
