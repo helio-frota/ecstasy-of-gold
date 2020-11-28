@@ -26,8 +26,8 @@ int rand_gold_position() {
   return (rand() % 4);
 }
 
-int basic_collision(float x, float y, float gold_x, float gold_y, int width,
-                    int height) {
+int basic_collision(
+    float x, float y, float gold_x, float gold_y, int width, int height) {
   if (x + width < gold_x || x > gold_x + width || y + height < gold_y ||
       y > gold_y + height) {
     return 0;
@@ -36,14 +36,30 @@ int basic_collision(float x, float y, float gold_x, float gold_y, int width,
 }
 
 int collided(PLAYER player) {
-  return basic_collision(player.x, player.y, DISPLAY_WIDTH - 850,
-                         DISPLAY_HEIGHT - 550, 40, 40) ||
-         basic_collision(player.x, player.y, DISPLAY_WIDTH - 850,
-                         DISPLAY_HEIGHT - 200, 40, 40) ||
-         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150,
-                         DISPLAY_HEIGHT - 550, 40, 40) ||
-         basic_collision(player.x, player.y, DISPLAY_WIDTH - 150,
-                         DISPLAY_HEIGHT - 200, 40, 40);
+  return basic_collision(player.x,
+                         player.y,
+                         DISPLAY_WIDTH - 850,
+                         DISPLAY_HEIGHT - 550,
+                         40,
+                         40) ||
+         basic_collision(player.x,
+                         player.y,
+                         DISPLAY_WIDTH - 850,
+                         DISPLAY_HEIGHT - 200,
+                         40,
+                         40) ||
+         basic_collision(player.x,
+                         player.y,
+                         DISPLAY_WIDTH - 150,
+                         DISPLAY_HEIGHT - 550,
+                         40,
+                         40) ||
+         basic_collision(player.x,
+                         player.y,
+                         DISPLAY_WIDTH - 150,
+                         DISPLAY_HEIGHT - 200,
+                         40,
+                         40);
 }
 
 int gold_found(PLAYER player, int gold_position) {
@@ -62,11 +78,13 @@ int gold_found(PLAYER player, int gold_position) {
 }
 
 int main() {
-
   if (!al_init()) {
-    al_show_native_message_box(al_get_current_display(), "EOG",
-                               "Error:", "Failed to initialize allegro 5.",
-                               NULL, ALLEGRO_MESSAGEBOX_ERROR);
+    al_show_native_message_box(al_get_current_display(),
+                               "EOG",
+                               "Error:",
+                               "Failed to initialize allegro 5.",
+                               NULL,
+                               ALLEGRO_MESSAGEBOX_ERROR);
     return EXIT_FAILURE;
   }
 
@@ -75,12 +93,15 @@ int main() {
   ALLEGRO_COLOR yellow = al_map_rgb(181, 137, 0);
 
   al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-  ALLEGRO_DISPLAY *display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+  ALLEGRO_DISPLAY* display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
   al_clear_to_color(darkgreen);
 
   if (!display) {
-    al_show_native_message_box(al_get_current_display(), "EOG",
-                               "Error:", "Failed to create display.", NULL,
+    al_show_native_message_box(al_get_current_display(),
+                               "EOG",
+                               "Error:",
+                               "Failed to create display.",
+                               NULL,
                                ALLEGRO_MESSAGEBOX_ERROR);
     return EXIT_FAILURE;
   }
@@ -95,16 +116,16 @@ int main() {
   ALLEGRO_KEYBOARD_STATE keyboard_state;
 
   al_reserve_samples(2);
-  ALLEGRO_SAMPLE *sound_gold = al_load_sample("sounds/sound_gold.wav");
-  ALLEGRO_SAMPLE *song_gold = al_load_sample("sounds/song_gold.wav");
-  ALLEGRO_SAMPLE_INSTANCE *song_instance = al_create_sample_instance(song_gold);
+  ALLEGRO_SAMPLE* sound_gold = al_load_sample("sounds/sound_gold.wav");
+  ALLEGRO_SAMPLE* song_gold = al_load_sample("sounds/song_gold.wav");
+  ALLEGRO_SAMPLE_INSTANCE* song_instance = al_create_sample_instance(song_gold);
   al_set_sample_instance_playmode(song_instance, ALLEGRO_PLAYMODE_LOOP);
   al_attach_sample_instance_to_mixer(song_instance, al_get_default_mixer());
 
-  ALLEGRO_FONT *font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
+  ALLEGRO_FONT* font = al_load_font("fonts/OpenSans-Regular.ttf", 36, 0);
 
-  ALLEGRO_EVENT_QUEUE *event_queue = al_create_event_queue();
-  ALLEGRO_TIMER *timer = al_create_timer(1.0);
+  ALLEGRO_EVENT_QUEUE* event_queue = al_create_event_queue();
+  ALLEGRO_TIMER* timer = al_create_timer(1.0);
   al_register_event_source(event_queue, al_get_keyboard_event_source());
   al_register_event_source(event_queue, al_get_timer_event_source(timer));
 
@@ -125,12 +146,22 @@ int main() {
   int gold_position = rand_gold_position();
 
   do {
-    al_draw_textf(font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d",
-                  player.score);
-    al_draw_textf(font, blue, (DISPLAY_WIDTH / 2) - 150, 1, ALLEGRO_ALIGN_LEFT,
-                  "STEPS: %d", player.steps);
-    al_draw_textf(font, blue, DISPLAY_WIDTH - 360, 1, ALLEGRO_ALIGN_LEFT,
-                  "TIME REMAINING: %d", seconds);
+    al_draw_textf(
+        font, blue, 10, 1, ALLEGRO_ALIGN_LEFT, "SCORE: %d", player.score);
+    al_draw_textf(font,
+                  blue,
+                  (DISPLAY_WIDTH / 2) - 150,
+                  1,
+                  ALLEGRO_ALIGN_LEFT,
+                  "STEPS: %d",
+                  player.steps);
+    al_draw_textf(font,
+                  blue,
+                  DISPLAY_WIDTH - 360,
+                  1,
+                  ALLEGRO_ALIGN_LEFT,
+                  "TIME REMAINING: %d",
+                  seconds);
     al_draw_line(1, 50, DISPLAY_WIDTH - 1, 50, blue, RECT_THICKNESS);
 
     ALLEGRO_EVENT events;
@@ -149,8 +180,8 @@ int main() {
           player.y += player.move_speed;
           if (collided(player)) {
             if (gold_found(player, gold_position)) {
-              al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,
-                             0);
+              al_play_sample(
+                  sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
               player.score++;
               gold_position = rand_gold_position();
             }
@@ -162,8 +193,8 @@ int main() {
           player.y -= player.move_speed;
           if (collided(player)) {
             if (gold_found(player, gold_position)) {
-              al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,
-                             0);
+              al_play_sample(
+                  sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
               gold_position = rand_gold_position();
               player.score++;
             }
@@ -175,8 +206,8 @@ int main() {
           player.x += player.move_speed;
           if (collided(player)) {
             if (gold_found(player, gold_position)) {
-              al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,
-                             0);
+              al_play_sample(
+                  sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
               gold_position = rand_gold_position();
               player.score++;
             }
@@ -188,8 +219,8 @@ int main() {
           player.x -= player.move_speed;
           if (collided(player)) {
             if (gold_found(player, gold_position)) {
-              al_play_sample(sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE,
-                             0);
+              al_play_sample(
+                  sound_gold, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
               gold_position = rand_gold_position();
               player.score++;
             }
@@ -211,26 +242,42 @@ int main() {
 
     al_draw_rectangle(80, 140, 280, 340, blue, RECT_THICKNESS);
     al_draw_rectangle(80, 480, 280, 680, blue, RECT_THICKNESS);
-    al_draw_rectangle(DISPLAY_WIDTH - 80, 140, DISPLAY_WIDTH - 280, 340, blue,
+    al_draw_rectangle(DISPLAY_WIDTH - 80,
+                      140,
+                      DISPLAY_WIDTH - 280,
+                      340,
+                      blue,
                       RECT_THICKNESS);
-    al_draw_rectangle(DISPLAY_WIDTH - 80, 480, DISPLAY_WIDTH - 280, 680, blue,
+    al_draw_rectangle(DISPLAY_WIDTH - 80,
+                      480,
+                      DISPLAY_WIDTH - 280,
+                      680,
+                      blue,
                       RECT_THICKNESS);
 
     if (gold_position == LEFT_TOP) {
-      al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 504,
-                               DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 544,
+      al_draw_filled_rectangle(DISPLAY_WIDTH - 864,
+                               DISPLAY_HEIGHT - 504,
+                               DISPLAY_WIDTH - 824,
+                               DISPLAY_HEIGHT - 544,
                                yellow);
     } else if (gold_position == LEFT_BOTTOM) {
-      al_draw_filled_rectangle(DISPLAY_WIDTH - 864, DISPLAY_HEIGHT - 208,
-                               DISPLAY_WIDTH - 824, DISPLAY_HEIGHT - 164,
+      al_draw_filled_rectangle(DISPLAY_WIDTH - 864,
+                               DISPLAY_HEIGHT - 208,
+                               DISPLAY_WIDTH - 824,
+                               DISPLAY_HEIGHT - 164,
                                yellow);
     } else if (gold_position == RIGHT_TOP) {
-      al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 508,
-                               DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 548,
+      al_draw_filled_rectangle(DISPLAY_WIDTH - 160,
+                               DISPLAY_HEIGHT - 508,
+                               DISPLAY_WIDTH - 200,
+                               DISPLAY_HEIGHT - 548,
                                yellow);
     } else if (gold_position == RIGHT_BOTTOM) {
-      al_draw_filled_rectangle(DISPLAY_WIDTH - 160, DISPLAY_HEIGHT - 208,
-                               DISPLAY_WIDTH - 200, DISPLAY_HEIGHT - 168,
+      al_draw_filled_rectangle(DISPLAY_WIDTH - 160,
+                               DISPLAY_HEIGHT - 208,
+                               DISPLAY_WIDTH - 200,
+                               DISPLAY_HEIGHT - 168,
                                yellow);
     }
   } while (!done);
