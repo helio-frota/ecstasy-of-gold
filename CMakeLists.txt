@@ -1,11 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-
 project(eog VERSION 0.0.1 LANGUAGES C)
-
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_COMPILER gcc)
-string(APPEND CMAKE_C_FLAGS "-Wall -Wextra -Wno-unused-parameter -Wendif-labels")
+string(APPEND CMAKE_C_FLAGS "-Wall -Wextra -Wno-unused-parameter")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 

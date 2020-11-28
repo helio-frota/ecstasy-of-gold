@@ -1,0 +1,14 @@
+{
+  "scripts": {
+    "install": "cmake-js compile -l warn",
+    "preinstall": "clang-format -i --glob=src/*.c",
+    "clean": "cmake-js clean -l error",
+    "test": "./build/eog",
+    "docs": "documentation build src/*.c --polyglot -f html -o docs"
+  },
+  "devDependencies": {
+    "clang-format": "^1.4.0",
+    "cmake-js": "^6.1.0",
+    "documentation": "^4.0.0"
+  }
+}
