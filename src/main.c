@@ -92,7 +92,7 @@ int main() {
   ALLEGRO_COLOR darkgreen = al_map_rgb(0, 43, 54);
   ALLEGRO_COLOR yellow = al_map_rgb(181, 137, 0);
 
-  al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+  al_set_new_display_flags(ALLEGRO_WINDOWED);
   ALLEGRO_DISPLAY* display = al_create_display(DISPLAY_WIDTH, DISPLAY_HEIGHT);
   al_clear_to_color(darkgreen);
 
